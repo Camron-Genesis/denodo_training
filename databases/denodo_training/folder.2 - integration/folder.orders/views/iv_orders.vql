@@ -1,0 +1,6 @@
+﻿CREATE OR REPLACE VIEW iv_orders FOLDER = '/2 - integration/orders'
+    PRIMARY KEY ( 'id' ) AS SELECT id, customer_code, status, date_placed, date_delivered, date_closed, order_id, product_id FROM (SELECT * FROM iv_web_orders EXTENDED UNION ALL SELECT id, customer_code, order_id, product_id, status FROM iv_historical_orders);
+
+ALTER VIEW iv_orders
+ LAYOUT (iv_web_orders = [20, 20, 200, 185], iv_historical_orders = [250, 20, 200, 185]);
+

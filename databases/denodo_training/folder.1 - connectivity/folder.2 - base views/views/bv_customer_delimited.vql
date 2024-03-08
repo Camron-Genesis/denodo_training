@@ -1,0 +1,29 @@
+﻿CREATE OR REPLACE WRAPPER DF ds_sample_delimited
+    FOLDER = '/1 - connectivity/2 - base views'
+    DATASOURCENAME=ds_sample_delimited
+    OUTPUTSCHEMA (
+        customer_id = 'id' (OPT),
+        customer_name = 'name' (OPT),
+        customer_amount = 'amount\n' (OPT)
+    );
+
+CREATE OR REPLACE TABLE bv_customer_delimited I18N us_est (
+        customer_id:text,
+        customer_name:text,
+        customer_amount:text
+    )
+    FOLDER = '/1 - connectivity/2 - base views'
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD ds_sample_delimited(
+        I18N us_est
+        CONSTRAINTS (
+             ADD customer_id (any) OPT ANY
+             ADD customer_name (any) OPT ANY
+             ADD customer_amount (any) OPT ANY
+        )
+        OUTPUTLIST (customer_amount, customer_id, customer_name
+        )
+        WRAPPER (df ds_sample_delimited)
+    );
+

@@ -1,0 +1,10 @@
+﻿CREATE OR REPLACE ASSOCIATION a_employee_sales2 REFERENTIAL CONSTRAINT 
+FOLDER = '/6 - associations'
+    ENDPOINT employee_data bv_hr_employees PRINCIPAL (1)
+    PRECONDITION job_id like 'SA_%'
+    ENDPOINT sales_data bv_sales_all (0,*)
+    ADD MAPPING employee_id=employeeid;
+
+ALTER ASSOCIATION a_employee_sales2
+ LAYOUT (bv_hr_employees = [80, 40, 320, 259], bv_sales_all = [500, 60, 260, 219]);
+

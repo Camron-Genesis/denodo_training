@@ -1,0 +1,27 @@
+﻿CREATE OR REPLACE INTERFACE VIEW i_customer_details (
+        id:text,
+        customer_code_internal:text,
+        complete_name:text,
+        email:text,
+        phone:text,
+        main_address:text,
+        main_postcode:text,
+        main_country:text,
+        registered_date:text
+    )
+    SET IMPLEMENTATION bv_wo_customer(
+        id = id,
+        customer_code_internal = customer_code_internal,
+        complete_name = concat(first_name, ', ', last_name),
+        email = email,
+        phone = phone,
+        main_address = main_address,
+        main_postcode = main_postcode,
+        main_country = main_country,
+        registered_date = registered_date    
+)
+    FOLDER = '/3 - business entities';
+
+ALTER VIEW i_customer_details
+ LAYOUT (bv_wo_customer = [490, 20, 302, 225]);
+

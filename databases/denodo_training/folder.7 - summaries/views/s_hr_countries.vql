@@ -1,0 +1,32 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC s_hr_countries
+    FOLDER = '/7 - summaries'
+    DATASOURCENAME=ds_human_resources
+    SCHEMANAME='${databases.denodo_training.folder.7 - summaries.views.jdbc.s_hr_countries.SCHEMANAME}' ESCAPE
+    RELATIONNAME='S_HR_COUNTRIES' 
+    OUTPUTSCHEMA (
+        region_id = 'region_id' :'java.math.BigDecimal' (OPT) (sourcetypedecimals='20', sourcetypesize='38', sourcetypeid='3', sourcetypename='DECIMAL')  SORTABLE NOT UPDATEABLE,
+        country_count = 'country_count' :'java.lang.Long' (OPT) (sourcetypesize='20', sourcetypeid='3', sourcetypename='DECIMAL')  SORTABLE NOT UPDATEABLE,
+        names = 'field_0' :'java.sql.Blob' (sourcetypeid='2004', sourcetypename='BLOB')  NOT SORTABLE NOT UPDATEABLE
+    );
+
+CREATE OR REPLACE SUMMARY VIEW s_hr_countries (
+        region_id:decimal (sourcetypeid = '3', sourcetyperadix = '10'),
+        country_count:long,
+        names:_array_register_country_name
+    )
+    FOLDER = '/7 - summaries'
+    ADD SEARCHMETHOD s_hr_countries(
+        I18N us_est
+        CONSTRAINTS (
+             ADD region_id (any) OPT ANY
+             ADD country_count (any) OPT ANY
+             ADD names NOS ZERO ()
+             ADD names.country_name NOS ZERO ()
+        )
+        OUTPUTLIST (country_count, names, region_id
+        )
+        WRAPPER (jdbc s_hr_countries)
+    )
+AS SELECT bv_hr_countries.region_id AS region_id, country_count AS country_count, names AS names FROM (SELECT region_id, count(*) AS country_count, nest(country_name) AS names FROM bv_hr_countries GROUP BY region_id);
+

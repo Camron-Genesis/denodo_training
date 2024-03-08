@@ -1,0 +1,5 @@
+﻿CREATE OR REPLACE VIEW iv_onyx_o5_buyers FOLDER = '/2 - integration' AS SELECT bv_product.productname AS productname, bv_wo_customer.first_name AS first_name, bv_wo_customer.last_name AS last_name FROM (iv_historical_orders AS iv_historical_orders INNER JOIN bv_wo_customer AS bv_wo_customer ON iv_historical_orders.customer_code = bv_wo_customer.customer_code_internal ) INNER JOIN bv_product AS bv_product ON iv_historical_orders.product_id = bv_product.productid  WHERE (bv_product.productname = 'Onyx O5' AND iv_historical_orders.status = 'Delivered') GROUP BY bv_product.productname, bv_wo_customer.first_name, bv_wo_customer.last_name;
+
+ALTER VIEW iv_onyx_o5_buyers
+ LAYOUT (iv_historical_orders = [20, 20, 200, 185], bv_wo_customer = [20, 275, 200, 225], bv_product = [20, 530, 200, 225]);
+

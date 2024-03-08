@@ -1,0 +1,17 @@
+﻿CREATE OR REPLACE INTERFACE VIEW i_order (
+        id:decimal (sourcetyperadix = '10', description = 'Order id', sourcetypeid = '3'),
+        customer_code:text (sourcetyperadix = '10', sourcetypesize = '20', description = 'Customer code', sourcetypeid = '12'),
+        status:text (sourcetyperadix = '10', sourcetypesize = '20', sourcetypeid = '12'),
+        date_placed:localdate (description = 'Date placed')
+    )
+    SET IMPLEMENTATION iv_orders(
+        id = id,
+        customer_code = customer_code,
+        status = status,
+        date_placed = cast('localdate', date_placed)    
+)
+    FOLDER = '/3 - business entities';
+
+ALTER VIEW i_order
+ LAYOUT (iv_orders = [440, 20, 254, 160]);
+

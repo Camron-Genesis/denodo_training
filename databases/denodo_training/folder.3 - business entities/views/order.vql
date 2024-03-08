@@ -1,0 +1,23 @@
+﻿CREATE OR REPLACE INTERFACE VIEW order (
+        customer_code:text (description = 'Customer code'),
+        product_id:decimal (description = 'Product id'),
+        id:decimal (description = 'Order id'),
+        status:text,
+        date_placed:timestamp,
+        date_delivered:timestamp,
+        date_closed:timestamp
+    )
+    SET IMPLEMENTATION iv_orders_current(
+        customer_code = customer_code,
+        product_id = product_id,
+        id = id,
+        status = status,
+        date_placed = date_placed,
+        date_delivered = date_delivered,
+        date_closed = date_closed    
+)
+    FOLDER = '/3 - business entities';
+
+ALTER VIEW order
+ LAYOUT (iv_orders_current = [450, 20, 230, 245]);
+

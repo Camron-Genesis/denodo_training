@@ -1,0 +1,5 @@
+﻿CREATE OR REPLACE VIEW iv_employee_sales_2 FOLDER = '/2 - integration/employee' AS SELECT bv_sales_all.employeeid AS employeeid, count(*) AS total_sales, sum(cast('decimal', bv_sales_all.totalprice)) AS total_price, start_date, end_date FROM bv_sales_all WHERE saledate between start_date AND end_date GROUP BY bv_sales_all.employeeid HAVING count(*) > 1 USING PARAMETERS ( start_date : localdate to_localdate('yyyy/MM/dd', '1970/01/01'), end_date : localdate cast('localdate', now()));
+
+ALTER VIEW iv_employee_sales_2
+ LAYOUT (bv_sales_all = [20, 20, 200, 205]);
+

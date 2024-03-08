@@ -1,0 +1,22 @@
+﻿CREATE OR REPLACE INTERFACE VIEW sales (
+        employeeid:text (description = 'Employee id'),
+        productid:text (description = 'Product id'),
+        customerid:text (description = 'Customer id'),
+        saleid:text (description = 'Sale id'),
+        saledate:text (description = 'Sale date'),
+        bundleamount:text (description = 'Bundle amount'),
+        productsaleprice:text (description = 'Product sale price'),
+        totalprice:text (description = 'Total price')
+    )
+    SET IMPLEMENTATION bv_sales_all(
+        employeeid = employeeid,
+        productid = productid,
+        customerid = customerid,
+        saleid = saleid,
+        saledate = saledate,
+        bundleamount = bundleamount,
+        productsaleprice = productsaleprice,
+        totalprice = totalprice    
+)
+    FOLDER = '/3 - business entities';
+

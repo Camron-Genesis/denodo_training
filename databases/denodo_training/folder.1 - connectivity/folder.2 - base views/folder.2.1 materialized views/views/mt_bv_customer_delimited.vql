@@ -1,0 +1,7 @@
+﻿CREATE OR REPLACE MATERIALIZED TABLE mt_bv_customer_delimited (
+        customer_id:text,
+        customer_name:text,
+        customer_amount:text
+    )
+    FOLDER = '/1 - connectivity/2 - base views/2.1 materialized views';
+

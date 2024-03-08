@@ -1,0 +1,5 @@
+﻿CREATE OR REPLACE VIEW iv_employee_departments FOLDER = '/2 - integration' AS SELECT bv_employees.first_name AS first_name, bv_employees.last_name AS last_name, bv_employees.salary AS salary, bv_employees.commission_pct AS commission_pct, bv_employees.department_id AS department_id, bv_hr_departments.department_name AS department_name FROM bv_hr_departments AS bv_hr_departments INNER JOIN bv_employees AS bv_employees ON bv_hr_departments.department_id = bv_employees.department_id ;
+
+ALTER VIEW iv_employee_departments
+ LAYOUT (bv_hr_departments = [20, 20, 200, 105], bv_employees = [20, 155, 200, 225]);
+

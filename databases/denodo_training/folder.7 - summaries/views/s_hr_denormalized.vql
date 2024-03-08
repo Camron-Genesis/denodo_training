@@ -1,0 +1,64 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC s_hr_denormalized
+    FOLDER = '/7 - summaries'
+    DATASOURCENAME=ds_human_resources
+    SCHEMANAME='${databases.denodo_training.folder.7 - summaries.views.jdbc.s_hr_denormalized.SCHEMANAME}' 
+    RELATIONNAME='S_HR_DENORMALIZED' 
+    OUTPUTSCHEMA (
+        region_name = 'REGION_NAME' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='25', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        country_name = 'COUNTRY_NAME' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='40', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        location_id = 'LOCATION_ID' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='4', sourcetypeid='3', sourcetypename='NUMBER')  SORTABLE,
+        city = 'CITY' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='30', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        department_id = 'DEPARTMENT_ID' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='4', sourcetypeid='3', sourcetypename='NUMBER')  SORTABLE,
+        department_name = 'DEPARTMENT_NAME' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='30', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        first_name = 'FIRST_NAME' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='20', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        last_name = 'LAST_NAME' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='25', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        salary = 'SALARY' :'java.math.BigDecimal' (OPT) (sourcetypedecimals='2', sourcetyperadix='10', sourcetypesize='8', sourcetypeid='3', sourcetypename='NUMBER')  SORTABLE,
+        commission_pct = 'COMMISSION_PCT' :'java.math.BigDecimal' (OPT) (sourcetypedecimals='2', sourcetyperadix='10', sourcetypesize='2', sourcetypeid='3', sourcetypename='NUMBER')  SORTABLE,
+        manager_id = 'MANAGER_ID' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='6', sourcetypeid='3', sourcetypename='NUMBER')  SORTABLE,
+        job_title = 'JOB_TITLE' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='35', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        min_salary = 'MIN_SALARY' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='6', sourcetypeid='3', sourcetypename='NUMBER')  SORTABLE,
+        max_salary = 'MAX_SALARY' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='6', sourcetypeid='3', sourcetypename='NUMBER')  SORTABLE
+    );
+
+CREATE OR REPLACE SUMMARY VIEW s_hr_denormalized (
+        region_name:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '25'),
+        country_name:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '40'),
+        location_id:int (sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '4'),
+        city:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '30'),
+        department_id:int (sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '4'),
+        department_name:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '30'),
+        first_name:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '20'),
+        last_name:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '25'),
+        salary:decimal (sourcetypeid = '3', sourcetyperadix = '10', sourcetypedecimals = '2', sourcetypesize = '8'),
+        commission_pct:decimal (sourcetypeid = '3', sourcetyperadix = '10', sourcetypedecimals = '2', sourcetypesize = '2'),
+        manager_id:int (sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '6'),
+        job_title:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '35'),
+        min_salary:int (sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '6'),
+        max_salary:int (sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '6')
+    )
+    FOLDER = '/7 - summaries'
+    ADD SEARCHMETHOD s_hr_denormalized(
+        I18N us_est
+        CONSTRAINTS (
+             ADD region_name (any) OPT ANY
+             ADD country_name (any) OPT ANY
+             ADD location_id (any) OPT ANY
+             ADD city (any) OPT ANY
+             ADD department_id (any) OPT ANY
+             ADD department_name (any) OPT ANY
+             ADD first_name (any) OPT ANY
+             ADD last_name (any) OPT ANY
+             ADD salary (any) OPT ANY
+             ADD commission_pct (any) OPT ANY
+             ADD manager_id (any) OPT ANY
+             ADD job_title (any) OPT ANY
+             ADD min_salary (any) OPT ANY
+             ADD max_salary (any) OPT ANY
+        )
+        OUTPUTLIST (city, commission_pct, country_name, department_id, department_name, first_name, job_title, last_name, location_id, manager_id, max_salary, min_salary, region_name, salary
+        )
+        WRAPPER (jdbc s_hr_denormalized)
+    )
+AS SELECT bv_hr_regions.region_name AS region_name, bv_hr_countries.country_name AS country_name, bv_hr_locations.location_id AS location_id, bv_hr_locations.city AS city, bv_hr_departments.department_id AS department_id, bv_hr_departments.department_name AS department_name, bv_hr_employees.first_name AS first_name, bv_hr_employees.last_name AS last_name, bv_hr_employees.salary AS salary, bv_hr_employees.commission_pct AS commission_pct, bv_hr_employees.manager_id AS manager_id, bv_hr_jobs.job_title AS job_title, bv_hr_jobs.min_salary AS min_salary, bv_hr_jobs.max_salary AS max_salary FROM ((((bv_hr_regions AS bv_hr_regions FULL OUTER JOIN bv_hr_countries AS bv_hr_countries ON bv_hr_regions.region_id = bv_hr_countries.region_id ) FULL OUTER JOIN bv_hr_locations AS bv_hr_locations ON bv_hr_countries.country_id = bv_hr_locations.country_id ) FULL OUTER JOIN bv_hr_departments AS bv_hr_departments ON bv_hr_locations.location_id = bv_hr_departments.location_id ) FULL OUTER JOIN bv_hr_employees AS bv_hr_employees ON (bv_hr_departments.department_id = bv_hr_employees.department_id AND bv_hr_departments.manager_id = bv_hr_employees.employee_id) ) FULL OUTER JOIN bv_hr_jobs AS bv_hr_jobs ON bv_hr_employees.job_id = bv_hr_jobs.job_id ;
+

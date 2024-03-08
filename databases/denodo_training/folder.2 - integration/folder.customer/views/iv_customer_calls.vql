@@ -1,0 +1,5 @@
+﻿CREATE OR REPLACE VIEW iv_customer_calls FOLDER = '/2 - integration/customer' AS SELECT bv_wo_customer.id, bv_wo_customer.customer_code_internal, bv_wo_customer.first_name, bv_wo_customer.last_name, bv_wo_customer.email, bv_wo_customer.phone, bv_wo_customer.main_address, bv_wo_customer.main_postcode, bv_wo_customer.main_country, bv_wo_customer.registered_date, bv_cc_service_call.call_id, bv_cc_service_call.location_id, bv_cc_service_call.problem_code, bv_cc_service_call.status_code, bv_cc_service_call.date_ticket_issued, bv_cc_service_call.date_call_received, bv_cc_service_call.other_details, bv_cc_service_call.caller_phone, bv_cc_service_call.case_id, bv_cc_service_call.agent_id, bv_cc_service_call.customer_code FROM bv_wo_customer AS bv_wo_customer INNER JOIN bv_cc_service_call AS bv_cc_service_call ON bv_wo_customer.customer_code_internal ~ (bv_cc_service_call.customer_code, '0.8') ;
+
+ALTER VIEW iv_customer_calls
+ LAYOUT (bv_wo_customer = [20, 20, 200, 225], bv_cc_service_call = [20, 275, 200, 225]);
+

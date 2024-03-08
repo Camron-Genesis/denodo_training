@@ -1,0 +1,8 @@
+﻿CREATE OR REPLACE MATERIALIZED TABLE orders_more_than_1000 (
+        invoice_id:text,
+        order_id:long,
+        first_name:text,
+        amount:long
+    )
+    FOLDER = '/1 - connectivity/2 - base views/2.1 materialized views';
+

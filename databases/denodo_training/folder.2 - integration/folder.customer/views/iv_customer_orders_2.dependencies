@@ -1,0 +1,13 @@
+﻿/databases/denodo_training/folder.2 - integration/2 - integration.vql
+/databases/denodo_training/folder.2 - integration/folder.customer/customer.vql
+/databases/denodo_training/folder.1 - connectivity/1 - connectivity.vql
+/databases/denodo_training/folder.1 - connectivity/folder.2 - base views/2 - base views.vql
+/databases/denodo_training/folder.1 - connectivity/folder.2 - base views/folder.work_orders/work_orders.vql
+/databases/denodo_training/folder.1 - connectivity/folder.1 - data sources/1 - data sources.vql
+/databases/denodo_training/folder.1 - connectivity/folder.1 - data sources/datasources/jdbc/ds_web_orders.vql
+/databases/denodo_training/folder.1 - connectivity/folder.2 - base views/folder.work_orders/views/bv_wo_order_item.vql
+/databases/denodo_training/folder.1 - connectivity/folder.2 - base views/folder.work_orders/views/bv_wo_orders.vql
+/databases/denodo_training/folder.1 - connectivity/folder.2 - base views/folder.product/product.vql
+/databases/denodo_training/folder.1 - connectivity/folder.1 - data sources/datasources/ws/ds_product.vql
+/databases/denodo_training/folder.1 - connectivity/folder.2 - base views/folder.product/views/bv_product.vql
+/databases/denodo_training/folder.1 - connectivity/folder.2 - base views/folder.work_orders/views/bv_wo_customer.vql

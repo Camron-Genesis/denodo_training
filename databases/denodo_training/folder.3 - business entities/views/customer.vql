@@ -1,0 +1,24 @@
+﻿CREATE OR REPLACE INTERFACE VIEW customer (
+        customer_code_internal:text (description = 'Customer code internal'),
+        id:decimal (description = 'Customer id'),
+        complete_name:text (description = 'Complete name'),
+        email:text (description = 'Email'),
+        phone:text (description = 'Phone number'),
+        main_address:text (description = 'Main address'),
+        main_postcode:int (description = 'Main postcode'),
+        main_country:text (description = 'Main country'),
+        registered_date:localdate (description = 'Registered date')
+    )
+    SET IMPLEMENTATION bv_wo_customer(
+        customer_code_internal = customer_code_internal,
+        id = id,
+        complete_name = concat(first_name, ' ', last_name),
+        email = email,
+        phone = phone,
+        main_address = main_address,
+        main_postcode = cast('int', main_postcode),
+        main_country = main_country,
+        registered_date = cast('localdate', registered_date)    
+)
+    FOLDER = '/3 - business entities';
+

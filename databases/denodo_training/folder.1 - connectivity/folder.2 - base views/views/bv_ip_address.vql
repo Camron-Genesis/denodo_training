@@ -1,0 +1,63 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JSON ds_ip_address
+    FOLDER = '/1 - connectivity/2 - base views'
+    DATASOURCENAME=ds_ip_address
+    TUPLEROOT '/JSONFile'
+    ROUTE HTTP 'http.CommonsHttpClientConnection,120000' GET '${databases.denodo_training.folder.1 - connectivity.folder.2 - base views.views.json.ds_ip_address.ROUTE.HTTP.URL}'
+    OUTPUTSCHEMA (jsonfile = 'JSONFile' : REGISTER OF (
+        ipversion = 'ipVersion' : 'java.lang.Integer',
+        ipaddress = 'ipAddress' : 'java.lang.String',
+        latitude = 'latitude' : 'java.lang.Double',
+        longitude = 'longitude' : 'java.lang.Double',
+        countryname = 'countryName' : 'java.lang.String',
+        countrycode = 'countryCode' : 'java.lang.String',
+        timezone = 'timeZone' : 'java.lang.String',
+        zipcode = 'zipCode' : 'java.lang.String',
+        cityname = 'cityName' : 'java.lang.String',
+        regionname = 'regionName' : 'java.lang.String',
+        isproxy = 'isProxy' : 'java.lang.String',
+        continent = 'continent' : 'java.lang.String',
+        continentcode = 'continentCode' : 'java.lang.String'
+    )
+    );
+
+CREATE OR REPLACE TABLE bv_ip_address I18N us_est (
+        ipversion:int,
+        ipaddress:text,
+        latitude:double,
+        longitude:double,
+        countryname:text,
+        countrycode:text,
+        timezone:text,
+        zipcode:text,
+        cityname:text,
+        regionname:text,
+        isproxy:text,
+        continent:text,
+        continentcode:text
+    )
+    FOLDER = '/1 - connectivity/2 - base views'
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD ds_ip_address(
+        I18N us_est
+        CONSTRAINTS (
+             ADD ipversion NOS ZERO ()
+             ADD ipaddress NOS ZERO ()
+             ADD latitude NOS ZERO ()
+             ADD longitude NOS ZERO ()
+             ADD countryname NOS ZERO ()
+             ADD countrycode NOS ZERO ()
+             ADD timezone NOS ZERO ()
+             ADD zipcode NOS ZERO ()
+             ADD cityname NOS ZERO ()
+             ADD regionname NOS ZERO ()
+             ADD isproxy NOS ZERO ()
+             ADD continent NOS ZERO ()
+             ADD continentcode NOS ZERO ()
+        )
+        OUTPUTLIST (cityname, continent, continentcode, countrycode, countryname, ipaddress, ipversion, isproxy, latitude, longitude, regionname, timezone, zipcode
+        )
+        WRAPPER (json ds_ip_address)
+    );
+
