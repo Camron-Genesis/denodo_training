@@ -1,0 +1,15 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE DATASOURCE CUSTOM base_vdp_resources_pattern
+    FOLDER = '/8 - import'
+    CLASSNAME='com.denodo.connect.log.LogCustomWrapper'
+    JARS 'denodo-log-customwrapper-dmr'
+    PARAMETERS (
+      'Date Pattern' = '${databases.denodo_training.folder.8 - import.datasources.custom.base_vdp_resources_pattern.Date Pattern}',
+      'Date Extractor Pattern' = '${databases.denodo_training.folder.8 - import.datasources.custom.base_vdp_resources_pattern.Date Extractor Pattern}',
+      'Log timezone' = '${databases.denodo_training.folder.8 - import.datasources.custom.base_vdp_resources_pattern.Log timezone}',
+      'Content Extractor Pattern' = '${databases.denodo_training.folder.8 - import.datasources.custom.base_vdp_resources_pattern.Content Extractor Pattern}',
+      'Filepath' = ROUTE LOCAL 'LocalConnection' '${databases.denodo_training.folder.8 - import.datasources.custom.base_vdp_resources_pattern.Filepath.ROUTE.LOCAL.PATH}',
+      'Sequential Search Interval' = ${databases.denodo_training.folder.8 - import.datasources.custom.base_vdp_resources_pattern.Sequential Search Interval},
+      'Rolling Implementation Class Name' = '${databases.denodo_training.folder.8 - import.datasources.custom.base_vdp_resources_pattern.Rolling Implementation Class Name}'
+    );
+

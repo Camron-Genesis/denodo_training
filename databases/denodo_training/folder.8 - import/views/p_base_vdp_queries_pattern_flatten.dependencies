@@ -1,0 +1,7 @@
+﻿/databases/denodo_training/folder.8 - import/8 - import.vql
+/databases/denodo_training/maps/requesttype_monitor_vdp_queries.vql
+/maps/i18n/monitor_vdp_queries_v2.vql
+/extensions/jars/denodo-log-customwrapper-dmr.vql
+/databases/denodo_training/folder.8 - import/datasources/custom/base_vdp_queries_pattern.vql
+/databases/denodo_training/folder.8 - import/views/base_vdp_queries_pattern.vql
+/databases/denodo_training/folder.8 - import/views/p_base_vdp_queries_pattern_array_elements.vql

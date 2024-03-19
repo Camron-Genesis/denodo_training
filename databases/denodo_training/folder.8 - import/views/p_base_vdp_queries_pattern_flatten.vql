@@ -1,0 +1,2 @@
+﻿CREATE OR REPLACE VIEW p_base_vdp_queries_pattern_flatten FOLDER = '/8 - import' AS SELECT database_0, username, requesttype, useragent, accessinterface, clientip, incomingdate, incominghour, duration, waitingtime, numrows, state, incomingminute, completed, query, cached, searchstartdate_0, searchenddate_0, string AS vdpview, id FROM FLATTEN p_base_vdp_queries_pattern_array_elements AS v ( v.vdpview);
+

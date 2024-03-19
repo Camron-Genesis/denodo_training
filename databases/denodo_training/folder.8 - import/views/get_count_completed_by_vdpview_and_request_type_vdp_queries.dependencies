@@ -1,0 +1,3 @@
+﻿/databases/denodo_training/folder.8 - import/8 - import.vql
+/extensions/jars/denodo-storedprocedures-vdp-dmr.vql
+/databases/denodo_training/folder.8 - import/storedprocedures/dmr_getcountcompletedbyvdpviewandrequesttypevdpqueries.vql

@@ -1,0 +1,2 @@
+﻿CREATE OR REPLACE VIEW p_base_vdp_queries_pattern_flatten_filtered FOLDER = '/8 - import' AS SELECT * FROM p_base_vdp_queries_pattern_flatten_2 WHERE db_by_element is not null ;
+
