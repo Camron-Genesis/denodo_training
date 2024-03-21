@@ -208,6 +208,5 @@ CREATE OR REPLACE TABLE bv_sf_account I18N us_pst (
         )
         WRAPPER (jdbc bv_sf_account)
     )
-    DECLARE CACHE INDEX account_id_idx UNIQUE  ON (id ASC)
     ATCACHE_THROUGH_VDP_ONLY;
 
