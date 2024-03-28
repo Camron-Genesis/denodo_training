@@ -1,0 +1,2 @@
+﻿CREATE OR REPLACE VIEW p_iv_orders FOLDER = '/2 - integration' AS SELECT count(*) AS count FROM iv_orders;
+

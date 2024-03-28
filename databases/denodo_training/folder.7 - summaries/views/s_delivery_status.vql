@@ -1,0 +1,28 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC s_delivery_status
+    FOLDER = '/7 - summaries'
+    DATASOURCENAME=ds_web_orders
+    SCHEMANAME='${databases.denodo_training.folder.7 - summaries.views.jdbc.s_delivery_status.SCHEMANAME}' ESCAPE
+    RELATIONNAME='S_DELIVERY_STATUS' 
+    OUTPUTSCHEMA (
+        number_of_orders = 'number_of_orders' :'java.lang.Long' (OPT) (sourcetypesize='20', sourcetypeid='3', sourcetypename='DECIMAL')  SORTABLE NOT UPDATEABLE,
+        status = 'field_0' :'java.lang.String' (OPT) (sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE NOT UPDATEABLE
+    );
+
+CREATE OR REPLACE SUMMARY VIEW s_delivery_status (
+        number_of_orders:long,
+        status:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '20')
+    )
+    FOLDER = '/7 - summaries'
+    ADD SEARCHMETHOD s_delivery_status(
+        I18N us_est
+        CONSTRAINTS (
+             ADD number_of_orders (any) OPT ANY
+             ADD status (any) OPT ANY
+        )
+        OUTPUTLIST (number_of_orders, status
+        )
+        WRAPPER (jdbc s_delivery_status)
+    )
+AS SELECT number_of_orders AS number_of_orders, bv_wo_orders.status AS status FROM (SELECT count(id) AS number_of_orders, status FROM bv_wo_orders GROUP BY status);
+
